@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "title": "Modern Minimalist Apartment",
+    "location": "New York, NY",
+    "year": "2024",
+    "area": "1,200 sq ft",
+    "style": "Minimalist",
+    "thumbnail": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=1200&h=800&fit=crop"
+    ],
+    "brief": "A sophisticated urban retreat featuring clean lines, neutral tones, and carefully curated furnishings that maximize space while maintaining elegance.",
+    "role": "Lead Interior Designer",
+    "testimonial": "The transformation exceeded our expectations. Every detail was thoughtfully considered."
+  },
+  {
+    "id": 2,
+    "title": "Scandinavian Family Home",
+    "location": "Portland, OR",
+    "year": "2024",
+    "area": "2,800 sq ft",
+    "style": "Scandinavian",
+    "thumbnail": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=800&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&h=800&fit=crop"
+    ],
+    "brief": "Warm, functional design emphasizing natural materials, cozy textures, and family-friendly layouts.",
+    "role": "Interior Design Consultant",
+    "testimonial": "A perfect blend of style and functionality for our growing family."
+  },
+  {
+    "id": 3,
+    "title": "Industrial Loft Conversion",
+    "location": "Brooklyn, NY",
+    "year": "2023",
+    "area": "1,800 sq ft",
+    "style": "Industrial",
+    "thumbnail": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=800&fit=crop"
+    ],
+    "brief": "Converting a raw industrial space into a sophisticated living environment while preserving original architectural elements.",
+    "role": "Lead Designer & Project Manager",
+    "testimonial": "Incredible vision and execution. The space feels both edgy and comfortable."
+  },
+  {
+    "id": 4,
+    "title": "Coastal Retreat",
+    "location": "Malibu, CA",
+    "year": "2023",
+    "area": "3,200 sq ft",
+    "style": "Coastal Contemporary",
+    "thumbnail": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=800&fit=crop"
+    ],
+    "brief": "Ocean-inspired design featuring natural textures, flowing layouts, and panoramic views.",
+    "role": "Interior Designer",
+    "testimonial": "Every morning feels like a vacation in our own home."
+  },
+  {
+    "id": 5,
+    "title": "Urban Penthouse",
+    "location": "Chicago, IL",
+    "year": "2023",
+    "area": "2,400 sq ft",
+    "style": "Contemporary",
+    "thumbnail": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop",
+    "images": [
+      "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=800&fit=crop"
+    ],
+    "brief": "Luxury high-rise living with dramatic city views and sophisticated material palette.",
+    "role": "Senior Interior Designer",
+    "testimonial": "The perfect balance of luxury and livability."
+  }
+]
