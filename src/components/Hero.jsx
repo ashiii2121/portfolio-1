@@ -25,7 +25,7 @@ const Hero = () => {
           src="/zunu.jpg"
           alt="Interior Design Hero - Beautiful modern living space showcasing Zunafa's design expertise"
           className="hero-image"
-          effect="blur"
+          effect="opacity"
           threshold={50}
           sizes="100vw"
           placeholder="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjYwIiB2aWV3Qm94PSIwIDAgMTAwIDYwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRkFGOUY2Ii8+CjxyZWN0IHg9IjIwIiB5PSIyMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjIwIiBmaWxsPSIjRThERUQxIi8+Cjx0ZXh0IHg9IjUwIiB5PSIzNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1zaXplPSI4IiBmaWxsPSIjQzM2RjRCIj5Mb2FkaW5nLi4uPC90ZXh0Pgo8L3N2Zz4="
@@ -102,7 +102,7 @@ const Hero = () => {
                 src="/pr-1.jpg"
                 alt="Featured completed interior design project - Beauty Parlour"
                 className="hero-work-img"
-                effect="blur"
+                effect="opacity"
                 threshold={50}
                 sizes="(max-width: 768px) 100vw, 400px"
               />

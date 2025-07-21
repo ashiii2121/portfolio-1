@@ -100,7 +100,7 @@ const Lightbox = ({ images, isOpen, onClose, currentIndex = 0 }) => {
               src={images[activeIndex]}
               alt={`Gallery image ${activeIndex + 1}`}
               className="max-w-full max-h-[80vh] object-contain rounded-lg"
-              effect="blur"
+              effect="opacity"
             />
             
             {/* Image Counter */}
@@ -128,7 +128,7 @@ const Lightbox = ({ images, isOpen, onClose, currentIndex = 0 }) => {
                     src={image}
                     alt={`Thumbnail ${index + 1}`}
                     className="w-full h-full object-cover"
-                    effect="blur"
+                    effect="opacity"
                   />
                 </button>
               ))}

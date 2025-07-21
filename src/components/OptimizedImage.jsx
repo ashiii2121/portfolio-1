@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 const OptimizedImage = ({
   src,
@@ -9,7 +9,7 @@ const OptimizedImage = ({
   width,
   height,
   placeholder,
-  effect = 'blur',
+  effect = 'opacity',
   threshold = 100,
   onClick,
   loading = 'lazy',
@@ -96,7 +96,7 @@ const OptimizedImage = ({
       ref={imgRef}
       src={src}
       alt={alt}
-      className={`${className} ${isLoaded ? 'loaded' : 'loading-blur'}`}
+      className={`${className} ${isLoaded ? 'image-loaded' : 'image-loading'}`}
       width={width}
       height={height}
       effect={effect}

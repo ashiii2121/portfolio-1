@@ -20,10 +20,10 @@ const AboutSection = () => {
               {/* Main Image Container */}
               <div className="about-image-container-enhanced">
                 <LazyLoadImage
-                  src="../../public/zunu1.jpg"
+                  src="/zunu1.jpg"
                   alt="Interior Designer Portrait"
                   className="about-portrait-image-enhanced"
-                  effect="blur"
+                  effect="opacity"
                   placeholderSrc=""
                 />
 

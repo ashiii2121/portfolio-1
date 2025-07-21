@@ -1,34 +1,44 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import OptimizedImage from "./OptimizedImage";
 
 const ExpandedGallery = ({ title = "COMPLETE WORKS", palette = [] }) => {
   const [selectedMedia, setSelectedMedia] = useState(null);
   const [mediaType, setMediaType] = useState(null); // 'image' or 'video'
+  const [loadedImages, setLoadedImages] = useState(new Set());
 
-  // 20 images using available project images and some placeholders
+  // 30 gallery images ex-1 to ex-30
   const galleryImages = [
-    "/pr-1.jpg",
-    "/pr1-1.jpg", 
-    "/pr1-2.jpg",
-    "/pr1-3.jpg",
-    "/pr2-1.jpg",
-    "/pr2-2.jpg", 
-    "/pr2-3.jpg",
-    "/pr2-4.jpg",
-    "/OF1-1.jpg",
-    "/OF1-2.jpg",
-    "/OF1-3.jpg", 
-    "/OF1-4.jpg",
-    "/bd1-1.jpg",
-    "/bd1-2.jpg",
-    "/zunu.jpg",
-    "/zunu1.jpg",
-    // Additional placeholder images
-    "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop&q=80", 
-    "https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=800&h=600&fit=crop&q=80",
-    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&h=600&fit=crop&q=80"
+    // "/ex-1.jpg",
+    "/ex-2.jpg",
+    "/ex-3.jpg",
+    // "/ex-4.jpg",
+    "/ex-5.jpg",
+    "/ex-6.jpg",
+    "/ex-7.jpg",
+    "/ex-8.jpg",
+    "/ex-9.jpg",
+    "/ex-10.jpg",
+    "/ex-11.jpg",
+    "/ex-12.jpg",
+    "/ex-13.jpg",
+    "/ex-14.jpg",
+    "/ex-15.jpg",
+    "/ex-16.jpg",
+    "/ex-17.jpg",
+    "/ex-18.jpg",
+    "/ex-19.jpg",
+    "/ex-20.jpg",
+    "/ex-21.jpg",
+    "/ex-22.jpg",
+    "/ex-23.jpg",
+    "/ex-24.jpg",
+    "/ex-25.jpg",
+    "/ex-26.jpg",
+    "/ex-27.jpg",
+    "/ex-28.jpg",
+    "/ex-29.jpg",
+    "/ex-30.jpg"
   ];
 
   // Sample videos (placeholder URLs - replace with actual video URLs)
@@ -37,19 +47,19 @@ const ExpandedGallery = ({ title = "COMPLETE WORKS", palette = [] }) => {
       id: 1,
       title: "Interior Design Process",
       thumbnail: "/pr-1.jpg",
-      videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+      videoUrl: ""
     },
     {
       id: 2, 
       title: "3D Visualization Tour",
       thumbnail: "/pr2-1.jpg",
-      videoUrl: "https://www.w3schools.com/html/movie.mp4"
+      videoUrl: ""
     },
     {
       id: 3,
       title: "Before & After Transformation", 
       thumbnail: "/OF1-1.jpg",
-      videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4"
+      videoUrl: ""
     }
   ];
 
@@ -61,6 +71,79 @@ const ExpandedGallery = ({ title = "COMPLETE WORKS", palette = [] }) => {
   const closeMedia = () => {
     setSelectedMedia(null);
     setMediaType(null);
+  };
+
+  const handleImageLoad = (index) => {
+    setLoadedImages(prev => new Set([...prev, index]));
+  };
+
+  // Navigation functions
+  const nextMedia = () => {
+    if (mediaType === 'image') {
+      setSelectedMedia((prev) => (prev + 1) % galleryImages.length);
+    } else if (mediaType === 'video') {
+      setSelectedMedia((prev) => (prev + 1) % videoSources.length);
+    }
+  };
+
+  const prevMedia = () => {
+    if (mediaType === 'image') {
+      setSelectedMedia((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+    } else if (mediaType === 'video') {
+      setSelectedMedia((prev) => (prev - 1 + videoSources.length) % videoSources.length);
+    }
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (selectedMedia !== null) {
+        switch (e.key) {
+          case 'ArrowLeft':
+            e.preventDefault();
+            prevMedia();
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            nextMedia();
+            break;
+          case 'Escape':
+            e.preventDefault();
+            closeMedia();
+            break;
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [selectedMedia, mediaType]);
+
+  // Touch/Swipe support
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const handleTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;
+    const isRightSwipe = distance < -50;
+
+    if (isLeftSwipe) {
+      nextMedia();
+    } else if (isRightSwipe) {
+      prevMedia();
+    }
   };
 
   // Get primary colors from palette for styling
@@ -86,7 +169,7 @@ const ExpandedGallery = ({ title = "COMPLETE WORKS", palette = [] }) => {
         >
           <h2 className="gallery-title">{title}</h2>
           <p className="gallery-description">
-            Explore our complete portfolio of interior design projects and behind-the-scenes content
+            Explore our complete portfolio of 30 curated interior design projects showcasing diverse styles and spaces
           </p>
         </motion.div>
 
@@ -111,11 +194,18 @@ const ExpandedGallery = ({ title = "COMPLETE WORKS", palette = [] }) => {
             >
               <OptimizedImage
                 src={image}
-                alt={`Gallery image ${index + 1}`}
+                alt={`Zunafa Interior Design Project ${index + 1} - Professional interior design showcase`}
                 className="gallery-image"
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 threshold={200}
+                effect="opacity"
+                onLoad={() => handleImageLoad(index)}
               />
+              {!loadedImages.has(index) && (
+                <div className="gallery-loading">
+                  <div className="loading-spinner"></div>
+                </div>
+              )}
               <div className="gallery-overlay">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
@@ -125,7 +215,7 @@ const ExpandedGallery = ({ title = "COMPLETE WORKS", palette = [] }) => {
           ))}
         </motion.div>
 
-        {/* Videos Section */}
+        Videos Section
         <motion.div
           className="videos-section"
           initial={{ opacity: 0, y: 30 }}
@@ -168,7 +258,6 @@ const ExpandedGallery = ({ title = "COMPLETE WORKS", palette = [] }) => {
         </motion.div>
       </div>
 
-      {/* Media Modal */}
       <AnimatePresence>
         {selectedMedia !== null && (
           <motion.div
@@ -185,16 +274,49 @@ const ExpandedGallery = ({ title = "COMPLETE WORKS", palette = [] }) => {
               exit={{ scale: 0.8, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <button className="close-btn" onClick={closeMedia}>
+              <button className="close-btn" onClick={closeMedia} aria-label="Close modal">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
                 </svg>
               </button>
-              
+
+              {/* Navigation Buttons */}
+              {((mediaType === 'image' && galleryImages.length > 1) ||
+                (mediaType === 'video' && galleryVideos.length > 1)) && (
+                <>
+                  <button
+                    className="nav-btn prev-btn"
+                    onClick={prevMedia}
+                    aria-label="Previous image"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                    </svg>
+                  </button>
+
+                  <button
+                    className="nav-btn next-btn"
+                    onClick={nextMedia}
+                    aria-label="Next image"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                    </svg>
+                  </button>
+                </>
+              )}
+
+              {/* Image/Video Counter */}
+              {selectedMedia !== null && (
+                <div className="media-counter">
+                  {selectedMedia + 1} / {mediaType === 'image' ? galleryImages.length : galleryVideos.length}
+                </div>
+              )}
+
               {mediaType === 'image' ? (
                 <img
                   src={galleryImages[selectedMedia]}
-                  alt={`Gallery image ${selectedMedia + 1}`}
+                  alt={`Zunafa Interior Design Project ${selectedMedia + 1} - Detailed view of professional interior design work`}
                   className="modal-image"
                 />
               ) : (

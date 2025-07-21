@@ -59,7 +59,7 @@ const Project = () => {
             src={project.images[0]}
             alt={project.title}
             className="project-hero-image"
-            effect="blur"
+            effect="opacity"
           />
           <div className="project-hero-overlay">
             <motion.div
@@ -148,7 +148,7 @@ const Project = () => {
                       src={image}
                       alt={`${project.title} - Image ${index + 1}`}
                       className="w-full h-full object-cover"
-                      effect="blur"
+                      effect="opacity"
                     />
                     {/* Click indicator */}
                     <div
