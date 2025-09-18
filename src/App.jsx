@@ -2,27 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AdminAuthProvider } from "./context/AdminAuthContext";
-import AdminLayout from "./layouts/AdminLayout";
-import ProtectedRoute from "./components/admin/ProtectedRoute";
 import AdminLogin from "./pages/admin/Login";
-import AdminDashboard from "./pages/admin/Dashboard";
-import AdminProjects from "./pages/admin/Projects";
-import AdminSettings from "./pages/admin/Settings";
-import ProjectForm from "./components/admin/ProjectForm";
-
-// Import the admin CSS
-import "./admin.css";
-
-// Import components with error boundaries
-const Navbar = React.lazy(() => import("./components/Navbar"));
-const Footer = React.lazy(() => import("./components/Footer"));
-const Home = React.lazy(() => import("./pages/Home"));
-const About = React.lazy(() => import("./pages/About"));
-const Projects = React.lazy(() => import("./pages/Projects"));
-const Project = React.lazy(() => import("./pages/Project"));
-const Contact = React.lazy(() => import("./pages/Contact"));
-const ScrollToTop = React.lazy(() => import("./components/ScrollToTop"));
-const FloatingCTA = React.lazy(() => import("./components/FloatingCTA"));
 
 // Simple fallback component
 const LoadingFallback = () => (
@@ -61,6 +41,22 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+// Simple test component
+const TestComponent = () => (
+  <div style={{ padding: "20px", textAlign: "center" }}>
+    <h2>Test Route Working</h2>
+    <p>If you can see this, routing is working correctly.</p>
+  </div>
+);
+
+// Simple Home component
+const Home = () => (
+  <div style={{ padding: "20px", textAlign: "center" }}>
+    <h2>Home Page</h2>
+    <p>Welcome to the home page.</p>
+  </div>
+);
+
 function App() {
   return (
     <ThemeProvider>
@@ -70,92 +66,10 @@ function App() {
             <div className="app-container">
               <React.Suspense fallback={<LoadingFallback />}>
                 <Routes>
-                  {/* Public routes */}
-                  <Route
-                    path="/"
-                    element={
-                      <>
-                        <Navbar />
-                        <Home />
-                        <Footer />
-                        <ScrollToTop />
-                        <FloatingCTA />
-                      </>
-                    }
-                  />
-                  <Route
-                    path="/about"
-                    element={
-                      <>
-                        <Navbar />
-                        <About />
-                        <Footer />
-                        <ScrollToTop />
-                        <FloatingCTA />
-                      </>
-                    }
-                  />
-                  <Route
-                    path="/projects"
-                    element={
-                      <>
-                        <Navbar />
-                        <Projects />
-                        <Footer />
-                        <ScrollToTop />
-                        <FloatingCTA />
-                      </>
-                    }
-                  />
-                  <Route
-                    path="/projects/:id"
-                    element={
-                      <>
-                        <Navbar />
-                        <Project />
-                        <Footer />
-                        <ScrollToTop />
-                        <FloatingCTA />
-                      </>
-                    }
-                  />
-                  <Route
-                    path="/contact"
-                    element={
-                      <>
-                        <Navbar />
-                        <Contact />
-                        <Footer />
-                        <ScrollToTop />
-                        <FloatingCTA />
-                      </>
-                    }
-                  />
-
-                  {/* Admin routes */}
+                  {/* Test routes */}
+                  <Route path="/test" element={<TestComponent />} />
+                  <Route path="/" element={<Home />} />
                   <Route path="/admin/login" element={<AdminLogin />} />
-                  <Route
-                    element={
-                      <ProtectedRoute>
-                        <AdminLayout />
-                      </ProtectedRoute>
-                    }
-                  >
-                    <Route
-                      path="/admin/dashboard"
-                      element={<AdminDashboard />}
-                    />
-                    <Route path="/admin/projects" element={<AdminProjects />} />
-                    <Route
-                      path="/admin/projects/new"
-                      element={<ProjectForm />}
-                    />
-                    <Route
-                      path="/admin/projects/edit/:id"
-                      element={<ProjectForm />}
-                    />
-                    <Route path="/admin/settings" element={<AdminSettings />} />
-                  </Route>
                 </Routes>
               </React.Suspense>
             </div>

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, Link } from "react-router-dom";
 import { useAdminAuth } from "../context/AdminAuthContext";
 
-const AdminLayout = () => {
+const AdminLayout = ({ children }) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { logout } = useAdminAuth();
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const AdminLayout = () => {
         <nav className="admin-sidebar-nav">
           <ul className="admin-sidebar-menu">
             <li className="admin-sidebar-item">
-              <a href="/admin/dashboard" className="admin-sidebar-link">
+              <Link to="/admin/dashboard" className="admin-sidebar-link">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -41,10 +41,10 @@ const AdminLayout = () => {
                   />
                 </svg>
                 <span>Dashboard</span>
-              </a>
+              </Link>
             </li>
             <li className="admin-sidebar-item">
-              <a href="/admin/projects" className="admin-sidebar-link">
+              <Link to="/admin/projects" className="admin-sidebar-link">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -59,10 +59,10 @@ const AdminLayout = () => {
                   />
                 </svg>
                 <span>Projects</span>
-              </a>
+              </Link>
             </li>
             <li className="admin-sidebar-item">
-              <a href="/admin/settings" className="admin-sidebar-link">
+              <Link to="/admin/settings" className="admin-sidebar-link">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -77,7 +77,7 @@ const AdminLayout = () => {
                   />
                 </svg>
                 <span>Settings</span>
-              </a>
+              </Link>
             </li>
             <li className="admin-sidebar-item">
               <button
@@ -133,7 +133,7 @@ const AdminLayout = () => {
           </div>
         </div>
         <div className="admin-content">
-          <Outlet />
+          {children || <Outlet />}
         </div>
       </div>
     </div>
