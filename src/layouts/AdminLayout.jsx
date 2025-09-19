@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Outlet, useNavigate, Link } from "react-router-dom";
 import { useAdminAuth } from "../context/AdminAuthContext";
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const { logout } = useAdminAuth();
+  const { logout, isAdminAuthenticated } = useAdminAuth();
   const navigate = useNavigate();
+  
+  console.log("AdminLayout - isAdminAuthenticated:", isAdminAuthenticated);
 
   const handleLogout = () => {
     logout();
@@ -133,7 +135,7 @@ const AdminLayout = ({ children }) => {
           </div>
         </div>
         <div className="admin-content">
-          {children || <Outlet />}
+          <Outlet />
         </div>
       </div>
     </div>

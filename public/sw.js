@@ -5,21 +5,13 @@ const DYNAMIC_CACHE = 'zunafa-dynamic-v1';
 
 // Assets to cache immediately
 const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/zunu.jpg',
-  '/zunu1.jpg',
+  './',
+  './index.html',
+  './manifest.json',
+  './zunu.jpg',
+  './zunu1.jpg',
   // Add other critical assets
 ];
-
-// Assets to cache on first request
-const CACHE_STRATEGIES = {
-  images: 'cache-first',
-  api: 'network-first',
-  static: 'cache-first',
-  dynamic: 'network-first'
-};
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
@@ -60,14 +52,14 @@ self.addEventListener('activate', (event) => {
       .then(() => {
         console.log('Service Worker: Activated');
         return self.clients.claim();
-      })
+      }
+    )
   );
 });
 
 // Fetch event - handle requests with appropriate caching strategy
 self.addEventListener('fetch', (event) => {
   const { request } = event;
-  const url = new URL(request.url);
   
   // Skip non-GET requests
   if (request.method !== 'GET') {
@@ -75,7 +67,13 @@ self.addEventListener('fetch', (event) => {
   }
   
   // Skip chrome-extension and other non-http requests
-  if (!url.protocol.startsWith('http')) {
+  if (!request.url.startsWith('http')) {
+    return;
+  }
+  
+  // For navigation requests, always serve from network first
+  if (request.mode === 'navigate') {
+    event.respondWith(networkFirstStrategy(request, DYNAMIC_CACHE));
     return;
   }
   
@@ -83,16 +81,12 @@ self.addEventListener('fetch', (event) => {
 });
 
 async function handleRequest(request) {
-  const url = new URL(request.url);
-  
   try {
     // Determine caching strategy based on request type
     if (isImageRequest(request)) {
       return await cacheFirstStrategy(request, DYNAMIC_CACHE);
     } else if (isStaticAsset(request)) {
       return await cacheFirstStrategy(request, STATIC_CACHE);
-    } else if (isAPIRequest(request)) {
-      return await networkFirstStrategy(request, DYNAMIC_CACHE);
     } else {
       return await networkFirstStrategy(request, DYNAMIC_CACHE);
     }
@@ -164,12 +158,10 @@ async function updateCacheInBackground(request, cache) {
 
 // Handle offline scenarios
 async function handleOffline(request) {
-  const url = new URL(request.url);
-  
   // For navigation requests, return cached index.html
   if (request.mode === 'navigate') {
     const cache = await caches.open(STATIC_CACHE);
-    const cachedResponse = await cache.match('/index.html');
+    const cachedResponse = await cache.match('./index.html');
     if (cachedResponse) {
       return cachedResponse;
     }
@@ -207,14 +199,8 @@ function isImageRequest(request) {
 function isStaticAsset(request) {
   const url = new URL(request.url);
   return /\.(js|css|woff|woff2|ttf|eot)$/i.test(url.pathname) ||
-         url.pathname === '/' ||
-         url.pathname === '/index.html';
-}
-
-function isAPIRequest(request) {
-  const url = new URL(request.url);
-  return url.pathname.startsWith('/api/') || 
-         url.hostname !== self.location.hostname;
+         url.pathname === './' ||
+         url.pathname === './index.html';
 }
 
 // Handle messages from the main thread

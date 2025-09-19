@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAdminAuth } from "../../context/AdminAuthContext";
 
@@ -6,8 +6,15 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [envPassword, setEnvPassword] = useState("");
   const { login } = useAdminAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Log environment variable for debugging
+    console.log("VITE_ADMIN_PASSWORD:", import.meta.env.VITE_ADMIN_PASSWORD);
+    setEnvPassword(import.meta.env.VITE_ADMIN_PASSWORD || "admin123");
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +22,12 @@ const AdminLogin = () => {
     setError("");
 
     try {
+      console.log("Attempting login with password:", password);
+      console.log("Expected password:", envPassword);
+      
       const isAuthenticated = login(password);
+      console.log("Authentication result:", isAuthenticated);
+      
       if (isAuthenticated) {
         navigate("/admin/dashboard");
       } else {
@@ -38,6 +50,10 @@ const AdminLogin = () => {
           </h2>
           <p className="mt-2 text-center text-sm text-charcoal/70">
             Sign in to access the admin dashboard
+          </p>
+          {/* Debug info */}
+          <p className="mt-2 text-center text-xs text-charcoal/50">
+            Expected password: {envPassword}
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

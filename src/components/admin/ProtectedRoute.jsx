@@ -4,6 +4,8 @@ import { useAdminAuth } from "../../context/AdminAuthContext";
 
 const ProtectedRoute = ({ children }) => {
   const { isAdminAuthenticated, loading } = useAdminAuth();
+  
+  console.log("ProtectedRoute - Auth status:", { isAdminAuthenticated, loading });
 
   if (loading) {
     return (
@@ -13,6 +15,9 @@ const ProtectedRoute = ({ children }) => {
     );
   }
 
+  const shouldRedirect = !isAdminAuthenticated;
+  console.log("ProtectedRoute - Should redirect:", shouldRedirect);
+  
   return isAdminAuthenticated ? children : <Navigate to="/admin/login" />;
 };
 
